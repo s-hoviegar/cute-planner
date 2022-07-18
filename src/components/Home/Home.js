@@ -1,0 +1,155 @@
+import React, { useCallback, useEffect, useState } from "react";
+import { db } from "../../utils/firebase";
+import { onValue, ref } from "firebase/database";
+
+import moment from "jalali-moment";
+import Card from "../UI/Card/Card";
+import Calendar from "../Calendar/Calendar";
+import Day from "../Day/Day";
+import ImportantTasks from "../Tasks/ImportantTasks";
+import classes from "./Home.module.css";
+import Button from "../UI/Button/Button";
+
+const INITIAL_TASKS = [
+  {
+    id: "e1",
+    title: "آب دادن گل‌ها",
+    status: false,
+    date: "1401-03-21",
+    important: true,
+  },
+  {
+    id: "e2",
+    title: "ورزش کردن",
+    status: false,
+    date: "1401-03-21",
+    important: true,
+  },
+  {
+    id: "e3",
+    title: "خرید غذای ماهی‌ها",
+    status: false,
+    date: "1401-04-20",
+    important: true,
+  },
+  {
+    id: "e4",
+    title: "شستن ظرف‌ها",
+    status: false,
+    date: "1401-03-28",
+    important: false,
+  },
+];
+
+const Home = () => {
+  const [value, setValue] = useState(
+    moment().locale("fa", {
+      week: {
+        dow: 6, // First day of week is Saturday
+      },
+    })
+  );
+
+  const [tasks, setTasks] = useState([]);
+  const [importants, setImportant] = useState(
+    tasks.filter((task) => {
+      if (task.important === true && task.status !== true) {
+        return task;
+      } else return null;
+    })
+  );
+
+  //https://planner-project-ce225-default-rtdb.europe-west1.firebasedatabase.app/
+  const fetchTasksHandler = useCallback(() => {
+    setTasks([]);
+    setImportant([]);
+    const query = ref(db, "tasks");
+    return onValue(query, (snapshot) => {
+      const data = snapshot.val();
+
+      if (snapshot.exists()) {
+        Object.values(data).map((task) => {
+          setTasks((prevTasks) => [...prevTasks, task]);
+        });
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    fetchTasksHandler();
+  }, [fetchTasksHandler]);
+
+  useEffect(() => {
+    setImportant(
+      tasks.filter((task) => {
+        if (task.important === true && task.status !== true) {
+          return task;
+        } else return null;
+      })
+    );
+  }, [tasks]);
+
+  const [showDayPage, setShowDayPage] = useState(false);
+
+  const onDayChange = (day) => {
+    setValue(day);
+    setShowDayPage(true);
+  };
+  const onMonthChange = (day) => {
+    setValue(day);
+  };
+
+  const changeDateOnImportantClick = (date) => {
+    setValue(
+      moment(date, "jYYYY/jM/jD").locale("fa", {
+        week: {
+          dow: 6, // First day of week is Saturday
+        },
+      })
+    );
+    setShowDayPage(true);
+  };
+
+  return (
+    <>
+      <Card className={classes.home}>
+        {!showDayPage && (
+          <div className={classes.row}>
+            <div className={`${classes.column} ${classes.left}`}>
+              <Card className={classes.todo_month}>
+                <h2>اهداف مهم ماه</h2>
+                <ImportantTasks
+                  value={value}
+                  items={importants}
+                  dateChangeHandler={changeDateOnImportantClick}
+                ></ImportantTasks>
+              </Card>
+            </div>
+            <div className={`${classes.column} ${classes.right}`}>
+              <Card className={classes.todo_month}>
+                <Calendar
+                  value={value}
+                  onChange={onDayChange}
+                  onChangeMonth={onMonthChange}
+                />
+              </Card>
+            </div>
+          </div>
+        )}
+        {showDayPage && (
+          <Card className={classes.home}>
+            <Day
+              value={value}
+              tasks={tasks}
+              setTasks={setTasks}
+              setImportant={setImportant}
+              showCalendar={setShowDayPage}
+            ></Day>
+          </Card>
+        )}
+      </Card>
+    </>
+  );
+};
+
+export default Home;

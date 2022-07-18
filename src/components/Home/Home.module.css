@@ -1,0 +1,46 @@
+.home {
+  width: 90%;
+  max-width: 40rem;
+  padding: 3rem;
+  margin: 2rem auto;
+  text-align: right;
+}
+
+.todo_month {
+  width: 100%;
+  min-height: 400px;
+  max-width: 40rem;
+  padding: 0.5rem;
+  margin: auto;
+  text-align: center;
+}
+
+.column {
+  float: right;
+  margin: 1%;
+}
+
+.left {
+  width: 33%;
+}
+
+.right {
+  width: 63%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  .right {
+    width: 100%;
+  }
+  .left {
+    width: 100%;
+  }
+}
