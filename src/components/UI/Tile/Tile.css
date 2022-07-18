@@ -1,0 +1,205 @@
+.tile {
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  border: 2px solid #3d4952;
+  border-radius: 25px;
+  color: #3d4952;
+  font-family: Pfont-Regular;
+  font-weight: bolder;
+  width: 150px;
+  height: 45px;
+  cursor: pointer;
+  padding: 0.4rem;
+  margin: 0.2rem;
+  text-align: center;
+  display: inline-block;
+}
+.tile:hover,
+.tile:active {
+  color: white;
+  background: #4a5964;
+  border: 2px solid #232c33;
+}
+
+.small {
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  padding: 0.4rem;
+  margin: 0.2rem;
+}
+
+.big {
+  font-size: large;
+  width: 115px;
+  height: 115px;
+  padding: 0.4rem;
+  margin: 0.2rem;
+  border-radius: 50%;
+}
+.back {
+  width: 70px;
+  height: 35px;
+  border-radius: 10px;
+  margin: 0.1rem;
+  float: left;
+}
+
+.week-day0 {
+  background: none;
+  color: #33cfff;
+  border: 2px solid #33cfff;
+}
+.week-day1 {
+  background: none;
+  color: #64a6bd;
+  border: 2px solid #64a6bd;
+}
+.week-day2 {
+  background: none;
+  color: #7dcfb6;
+  border: 2px solid #7dcfb6;
+}
+.week-day3 {
+  background: none;
+  color: #4daa57;
+  border: 2px solid #4daa57;
+}
+.week-day4 {
+  background: none;
+  color: palevioletred;
+  border: 2px solid palevioletred;
+}
+.thursday {
+  background: none;
+  color: #f79256;
+  border: 2px solid #f79256;
+}
+.friday {
+  background: none;
+  color: #c43331;
+  border: 2px solid #c43331;
+}
+.other {
+  background: none;
+  color: #cccccc;
+  border: 2px solid #cccccc;
+}
+.today {
+  background: #3e84b9;
+  color: white;
+  border: 2px solid #3e84b9;
+}
+.selected {
+  background: #232c33;
+  color: white;
+  border: 2px solid #232c33;
+}
+.selected:hover,
+.selected:active {
+  color: white;
+  background: #4a5964;
+  border: 2px solid #232c33;
+}
+
+.week-header0 {
+  background: #64a6bd;
+  color: white;
+  border: 2px solid #64a6bd;
+}
+.week-header1 {
+  background: #7dcfb6;
+  color: white;
+  border: 2px solid #7dcfb6;
+}
+.week-header2 {
+  background: #4daa57;
+  color: white;
+  border: 2px solid #4daa57;
+}
+.week-header3 {
+  background: palevioletred;
+  color: white;
+  border: 2px solid palevioletred;
+}
+.week-header4 {
+  background: #f79256;
+  color: white;
+  border: 2px solid #f79256;
+}
+.week-header5 {
+  background: #c43331;
+  color: white;
+  border: 2px solid #c43331;
+}
+.week-header6 {
+  background: #33cfff;
+  color: white;
+  border: 2px solid #33cfff;
+}
+
+.week-day:hover,
+.week-day:active {
+  color: white;
+  background: #232c33;
+  border: 2px solid #232c33;
+}
+
+.thursday:hover,
+.thursday:active {
+  color: white;
+  background: #f79256;
+  border: 2px solid #f79256;
+}
+
+.friday:hover,
+.friday:active {
+  color: white;
+  background: #c43331;
+  border: 2px solid #c43331;
+}
+
+.week-day0:hover,
+.week-day0:hover {
+  background: #2497b9;
+  color: white;
+  border: 2px solid #2497b9;
+}
+.week-day1:hover,
+.week-day1:hover {
+  background: #64a6bd;
+  color: white;
+  border: 2px solid #64a6bd;
+}
+.week-day2:hover,
+.week-day2:hover {
+  background: #7dcfb6;
+  color: white;
+  border: 2px solid #7dcfb6;
+}
+.week-day3:hover,
+.week-day3:hover {
+  background: #4daa57;
+  color: white;
+  border: 2px solid #4daa57;
+}
+.week-day4:hover,
+.week-day4:hover {
+  background: palevioletred;
+  color: white;
+  border: 2px solid palevioletred;
+}
+
+.previous,
+.next {
+  font-family: "Courier New", Courier, monospace;
+  background: #a2d2ff;
+  color: white;
+  border: 2px solid #a2d2ff;
+}
+.previous:hover,
+.next:hover {
+  background: #bde0fe;
+  color: white;
+  border: 2px solid #bde0fe;
+}

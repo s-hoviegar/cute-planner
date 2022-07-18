@@ -1,0 +1,28 @@
+* {
+  box-sizing: border-box;
+  direction: rtl;
+}
+
+html {
+  font-family: Pfont-Regular;
+  background: #fff;
+}
+
+body {
+  margin: 0;
+  font-family: Pfont-Regular;
+}
+
+main {
+  margin-top: 6rem;
+}
+
+@font-face {
+  font-family: "Pfont-Regular";
+  src: local("Pfont-Regular"), url(./fonts/Pfont-Regular.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Pfont-Bold";
+  src: local("Pfont-Bold"), url(./fonts/Pfont-Bold.ttf) format("truetype");
+}
