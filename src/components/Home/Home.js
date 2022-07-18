@@ -8,38 +8,6 @@ import Calendar from "../Calendar/Calendar";
 import Day from "../Day/Day";
 import ImportantTasks from "../Tasks/ImportantTasks";
 import classes from "./Home.module.css";
-import Button from "../UI/Button/Button";
-
-const INITIAL_TASKS = [
-  {
-    id: "e1",
-    title: "آب دادن گل‌ها",
-    status: false,
-    date: "1401-03-21",
-    important: true,
-  },
-  {
-    id: "e2",
-    title: "ورزش کردن",
-    status: false,
-    date: "1401-03-21",
-    important: true,
-  },
-  {
-    id: "e3",
-    title: "خرید غذای ماهی‌ها",
-    status: false,
-    date: "1401-04-20",
-    important: true,
-  },
-  {
-    id: "e4",
-    title: "شستن ظرف‌ها",
-    status: false,
-    date: "1401-03-28",
-    important: false,
-  },
-];
 
 const Home = () => {
   const [value, setValue] = useState(
