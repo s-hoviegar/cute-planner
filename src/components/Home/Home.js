@@ -36,9 +36,9 @@ const Home = () => {
       const data = snapshot.val();
 
       if (snapshot.exists()) {
-        Object.values(data).map((task) => {
-          setTasks((prevTasks) => [...prevTasks, task]);
-        });
+        Object.values(data).map((task) =>
+          setTasks((prevTasks) => [...prevTasks, task])
+        );
       }
     });
   }, []);
