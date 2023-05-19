@@ -97,8 +97,6 @@ const Login = (props) => {
     setIsLoading(true);
     if (!isSignup) {
       // console.log("sign in code goes here");
-      console.log(firebaseAuth.currentUser.uid);
-
       signInWithEmailAndPassword(firebaseAuth, enteredEmail, enteredPassword)
         .then((userCredential) => {
           // Signed in
@@ -246,7 +244,7 @@ const Login = (props) => {
               className={classes.signin}
               disabled={!formIsValid}
             >
-              ثبت نام
+              {!isLoading ? " ثبت نام" : " منتظر بمانید"}
             </Button>
             <button type="button" className={classes.signup} onClick={setLogin}>
               ورود
@@ -259,7 +257,7 @@ const Login = (props) => {
               className={classes.signin}
               disabled={!formIsValid}
             >
-              ورود
+              {!isLoading ? "ورود" : " منتظر بمانید"}
             </Button>
             <button type="button" className={classes.signup} onClick={setLogin}>
               ثبت نام

@@ -36,7 +36,7 @@ const Home = () => {
   const fetchTasksHandler = useCallback(() => {
     setTasks([]);
     setImportant([]);
-    const query = ref(db, "tasks" + "/" + userID);
+    const query = ref(db, "tasks/" + userID);
     return onValue(query, (snapshot) => {
       const data = snapshot.val();
 
