@@ -1,16 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
 import { db } from "../../utils/firebase";
 import { ref, set, update } from "firebase/database";
 
 import Tile from "../UI/Tile/Tile";
 import NewTask from "../Tasks/NewTask";
 import Tasks from "../Tasks/Tasks";
+import AuthContext from "../../store/auth-context";
 
 const Day = ({ value, tasks, setTasks, setImportant, showCalendar }) => {
+  const authCtx = useContext(AuthContext);
+  const userID = authCtx.userID;
+
   // return value.format("ddd D MMM YYYY");
   const addTaskHandler = (task) => {
     setTasks([]);
-    set(ref(db, "tasks/" + task.id), {
+    set(ref(db, "tasks/" + userID + "/" + task.id), {
       id: task.id,
       title: task.title,
       date: task.date,
@@ -35,7 +39,7 @@ const Day = ({ value, tasks, setTasks, setImportant, showCalendar }) => {
       important: tasks[index].important,
     };
 
-    update(ref(db, "tasks/" + id), {
+    update(ref(db, "tasks/" + userID + "/" + id), {
       id: tasks[index].id,
       title: tasks[index].title,
       status: checked,
@@ -68,7 +72,7 @@ const Day = ({ value, tasks, setTasks, setImportant, showCalendar }) => {
       important: checked,
     };
 
-    update(ref(db, "tasks/" + id), {
+    update(ref(db, "tasks/" + userID + "/" + id), {
       id: tasks[index].id,
       title: tasks[index].title,
       status: tasks[index].status,

@@ -97,6 +97,8 @@ const Login = (props) => {
     setIsLoading(true);
     if (!isSignup) {
       // console.log("sign in code goes here");
+      console.log(firebaseAuth.currentUser.uid);
+
       signInWithEmailAndPassword(firebaseAuth, enteredEmail, enteredPassword)
         .then((userCredential) => {
           // Signed in
@@ -119,9 +121,9 @@ const Login = (props) => {
 
               if (snapshot.exists()) {
                 // console.log("This user is an admin.");
-
                 authCtx.login(
                   userCredential._tokenResponse.idToken,
+                  firebaseAuth.currentUser.uid,
                   expirationTime.toISOString(),
                   firebaseAuth.currentUser.emailVerified,
                   true
@@ -131,6 +133,7 @@ const Login = (props) => {
 
                 authCtx.login(
                   userCredential._tokenResponse.idToken,
+                  firebaseAuth.currentUser.uid,
                   expirationTime.toISOString(),
                   firebaseAuth.currentUser.emailVerified,
                   false
@@ -143,6 +146,7 @@ const Login = (props) => {
 
               authCtx.login(
                 userCredential._tokenResponse.idToken,
+                firebaseAuth.currentUser.uid,
                 expirationTime.toISOString(),
                 firebaseAuth.currentUser.emailVerified,
                 false
@@ -178,6 +182,7 @@ const Login = (props) => {
           );
           authCtx.login(
             userCredential._tokenResponse.idToken,
+            firebaseAuth.currentUser.uid,
             expirationTime.toISOString(),
             firebaseAuth.currentUser.emailVerified,
             false

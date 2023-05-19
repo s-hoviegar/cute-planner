@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { db } from "../../utils/firebase";
 import { onValue, ref } from "firebase/database";
 
@@ -8,6 +8,7 @@ import Calendar from "../Calendar/Calendar";
 import Day from "../Day/Day";
 import ImportantTasks from "../Tasks/ImportantTasks";
 import classes from "./Home.module.css";
+import AuthContext from "../../store/auth-context";
 
 const Home = () => {
   const [value, setValue] = useState(
@@ -27,11 +28,15 @@ const Home = () => {
     })
   );
 
+  const authCtx = useContext(AuthContext);
+  const userID = authCtx.userID;
+  console.log(userID);
+
   //https://planner-project-ce225-default-rtdb.europe-west1.firebasedatabase.app/
   const fetchTasksHandler = useCallback(() => {
     setTasks([]);
     setImportant([]);
-    const query = ref(db, "tasks");
+    const query = ref(db, "tasks" + "/" + userID);
     return onValue(query, (snapshot) => {
       const data = snapshot.val();
 
@@ -41,7 +46,7 @@ const Home = () => {
         );
       }
     });
-  }, []);
+  }, [userID]);
 
   useEffect(() => {
     fetchTasksHandler();
