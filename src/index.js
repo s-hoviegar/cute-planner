@@ -7,4 +7,11 @@ import App from "./App";
 import "./fonts/Pfont-Regular.ttf";
 import "./fonts/Pfont-Bold.ttf";
 
-ReactDOM.render(<App />, document.getElementById("root"));
+import { AuthContextProvider } from "./store/auth-context";
+
+ReactDOM.render(
+  <AuthContextProvider>
+    <App />
+  </AuthContextProvider>,
+  document.getElementById("root")
+);

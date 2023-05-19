@@ -1,5 +1,13 @@
-import React, { useState, useEffect, useReducer } from "react";
+import React, { useState, useEffect, useReducer, useContext } from "react";
+import {
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+} from "firebase/auth";
+import { ref, child, get } from "firebase/database";
 
+import { firebaseAuth, db } from "../../utils/firebase";
+
+import AuthContext from "../../store/auth-context";
 import Card from "../UI/Card/Card";
 import classes from "./Login.module.css";
 import Button from "../UI/Button/Button";
@@ -30,6 +38,10 @@ const Login = (props) => {
   // const [enteredPassword, setEnteredPassword] = useState("");
   // const [passwordIsValid, setPasswordIsValid] = useState();
   const [formIsValid, setFormIsValid] = useState(false);
+  const [isSignup, setIsSignup] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const authCtx = useContext(AuthContext);
 
   const [emailState, dispatchEmail] = useReducer(emailReducer, {
     value: "",
@@ -41,25 +53,17 @@ const Login = (props) => {
     isValid: null,
   });
 
-  useEffect(() => {
-    console.log("EFFECT RUNNING");
-
-    return () => {
-      console.log("EFFECT CLEANUP");
-    };
-  }, []);
-
   const { isValid: emailIsValid } = emailState;
   const { isValid: passwordIsValid } = passwordState;
 
   useEffect(() => {
     const identifier = setTimeout(() => {
-      console.log("Checking form validity!");
+      // console.log("Checking form validity!");
       setFormIsValid(emailIsValid && passwordIsValid);
     }, 750);
 
     return () => {
-      console.log("CLEANUP");
+      // console.log("CLEANUP");
       clearTimeout(identifier);
     };
   }, [emailIsValid, passwordIsValid]);
@@ -86,7 +90,116 @@ const Login = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    props.onLogin(emailState.value, passwordState.value);
+
+    const enteredEmail = emailState.value;
+    const enteredPassword = passwordState.value;
+
+    setIsLoading(true);
+    if (!isSignup) {
+      // console.log("sign in code goes here");
+      signInWithEmailAndPassword(firebaseAuth, enteredEmail, enteredPassword)
+        .then((userCredential) => {
+          // Signed in
+          // console.log(firebaseAuth.currentUser.uid);
+
+          // set(ref(db, "admins/" + firebaseAuth.currentUser.uid), {
+          //   email: firebaseAuth.currentUser.email,
+          // });
+
+          // console.log(userCredential._tokenResponse.expiresIn);
+          const expirationTime = new Date(
+            new Date().getTime() +
+              +userCredential._tokenResponse.expiresIn * 1000
+          );
+
+          const dbRef = ref(db);
+          get(child(dbRef, `admins/${firebaseAuth.currentUser.uid}`))
+            .then((snapshot) => {
+              setIsLoading(false);
+
+              if (snapshot.exists()) {
+                // console.log("This user is an admin.");
+
+                authCtx.login(
+                  userCredential._tokenResponse.idToken,
+                  expirationTime.toISOString(),
+                  firebaseAuth.currentUser.emailVerified,
+                  true
+                );
+              } else {
+                // console.log("No such admin exists!");
+
+                authCtx.login(
+                  userCredential._tokenResponse.idToken,
+                  expirationTime.toISOString(),
+                  firebaseAuth.currentUser.emailVerified,
+                  false
+                );
+              }
+            })
+            .catch((error) => {
+              setIsLoading(false);
+              console.error(error);
+
+              authCtx.login(
+                userCredential._tokenResponse.idToken,
+                expirationTime.toISOString(),
+                firebaseAuth.currentUser.emailVerified,
+                false
+              );
+            });
+
+          props.onLogin(emailState.value, passwordState.value);
+          // ...
+        })
+        .catch((error) => {
+          setIsLoading(false);
+
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log(error);
+          alert(errorCode + ": " + errorMessage);
+        });
+    } else {
+      // console.log("sign up code goes here");
+      createUserWithEmailAndPassword(
+        firebaseAuth,
+        enteredEmail,
+        enteredPassword
+      )
+        .then((userCredential) => {
+          // Signed in
+          setIsLoading(false);
+          // console.log(userCredential._tokenResponse.idToken);
+          // console.log(userCredential._tokenResponse.expiresIn);
+          const expirationTime = new Date(
+            new Date().getTime() +
+              +userCredential._tokenResponse.expiresIn * 1000
+          );
+          authCtx.login(
+            userCredential._tokenResponse.idToken,
+            expirationTime.toISOString(),
+            firebaseAuth.currentUser.emailVerified,
+            false
+          );
+
+          props.onLogin(emailState.value, passwordState.value);
+          // ...
+        })
+        .catch((error) => {
+          setIsLoading(false);
+
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log(error);
+          alert(errorCode + ": " + errorMessage);
+          // ..
+        });
+    }
+  };
+
+  const setLogin = () => {
+    setIsSignup((prevState) => !prevState);
   };
 
   return (
@@ -97,7 +210,7 @@ const Login = (props) => {
             emailState.isValid === false ? classes.invalid : ""
           }`}
         >
-          <label htmlFor="email">E-Mail</label>
+          <label htmlFor="email">ایمیل</label>
           <input
             type="email"
             id="email"
@@ -111,7 +224,7 @@ const Login = (props) => {
             passwordState.isValid === false ? classes.invalid : ""
           }`}
         >
-          <label htmlFor="password">Password</label>
+          <label htmlFor="password">رمزعبور</label>
           <input
             type="password"
             id="password"
@@ -120,11 +233,34 @@ const Login = (props) => {
             onBlur={validatePasswordHandler}
           />
         </div>
-        <div className={classes.actions}>
-          <Button type="submit" className={classes.btn} disabled={!formIsValid}>
-            Login
-          </Button>
-        </div>
+
+        {isSignup ? (
+          <div className={classes.actions}>
+            <Button
+              type="submit"
+              className={classes.signin}
+              disabled={!formIsValid}
+            >
+              ثبت نام
+            </Button>
+            <button type="button" className={classes.signup} onClick={setLogin}>
+              ورود
+            </button>
+          </div>
+        ) : (
+          <div className={classes.actions}>
+            <Button
+              type="submit"
+              className={classes.signin}
+              disabled={!formIsValid}
+            >
+              ورود
+            </Button>
+            <button type="button" className={classes.signup} onClick={setLogin}>
+              ثبت نام
+            </button>
+          </div>
+        )}
       </form>
     </Card>
   );
