@@ -8,7 +8,7 @@ Just run `npm install`.
 
 # Usage
 
-For runnig this application run `npm start`.
+For running this application run `npm start`.
 
 # Debug
 
