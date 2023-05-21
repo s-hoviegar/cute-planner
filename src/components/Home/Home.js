@@ -103,7 +103,7 @@ const Home = () => {
           <div className={classes.row}>
             <div className={`${classes.column} ${classes.left}`}>
               <Card className={classes.todo_month}>
-                <h2>اهداف مهم ماه</h2>
+                <h2>لیست کارها</h2>
                 <DropdownButton
                   as={ButtonGroup}
                   key={filter}
