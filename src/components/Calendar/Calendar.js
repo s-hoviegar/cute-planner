@@ -49,19 +49,21 @@ const Calendar = ({ value, onChange, onChangeMonth }) => {
           ))}
         </tbody>
       </table>
-      <Button
-        onClick={() =>
-          onChange(
-            moment().locale("fa", {
-              week: {
-                dow: 6, // First day of week is Saturday
-              },
-            })
-          )
-        }
-      >
-        برو به امروز
-      </Button>
+      <div className={styles.footer}>
+        <Button
+          onClick={() =>
+            onChange(
+              moment().locale("fa", {
+                week: {
+                  dow: 6, // First day of week is Saturday
+                },
+              })
+            )
+          }
+        >
+          برو به امروز
+        </Button>
+      </div>
     </>
   );
 };

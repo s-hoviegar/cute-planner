@@ -1,5 +1,6 @@
 import Tile from "../UI/Tile/Tile";
 import Button from "../UI/Button/Button";
+import classes from "./CalendarHeader.module.css";
 
 const CalendarHeader = ({ value, setValue }) => {
   const currMonthName = () => {
@@ -16,7 +17,7 @@ const CalendarHeader = ({ value, setValue }) => {
   };
 
   return (
-    <div className="header">
+    <div className={classes.header}>
       <Tile className="small previous" onClick={() => setValue(prevMonth())}>
         {String.fromCharCode(171)}
       </Tile>

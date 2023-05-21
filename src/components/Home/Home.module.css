@@ -1,18 +1,23 @@
+.pad {
+  margin: 6rem auto;
+  text-align: right;
+}
+
 .home {
   width: 90%;
-  max-width: 40rem;
+  /* max-width: 40rem; */
   padding: 3rem;
   margin: 2rem auto;
   text-align: right;
 }
 
 .todo_month {
-  width: 100%;
+  width: 90%;
   min-height: 400px;
-  max-width: 40rem;
+  /* max-width: 40rem; */
   padding: 0.5rem;
   margin: auto;
-  text-align: center;
+  text-align: right;
 }
 
 .column {
@@ -21,11 +26,11 @@
 }
 
 .left {
-  width: 33%;
+  width: 48%;
 }
 
 .right {
-  width: 63%;
+  width: 48%;
 }
 
 /* Clear floats after the columns */

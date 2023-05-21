@@ -30,7 +30,7 @@ const Home = () => {
 
   const authCtx = useContext(AuthContext);
   const userID = authCtx.userID;
-  console.log(userID);
+  // console.log(userID);
 
   //https://planner-project-ce225-default-rtdb.europe-west1.firebasedatabase.app/
   const fetchTasksHandler = useCallback(() => {
@@ -85,7 +85,7 @@ const Home = () => {
 
   return (
     <>
-      <Card className={classes.home}>
+      <div className={classes.pad}>
         {!showDayPage && (
           <div className={classes.row}>
             <div className={`${classes.column} ${classes.left}`}>
@@ -120,7 +120,7 @@ const Home = () => {
             ></Day>
           </Card>
         )}
-      </Card>
+      </div>
     </>
   );
 };

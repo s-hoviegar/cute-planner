@@ -10,9 +10,9 @@ const ImportantTaskItem = (props) => {
   return (
     <li>
       <Card className="important-task-item" onClick={gotoDateHandler}>
-        <div className="task-item__description">
+        <div className="important-task-item__description">
           <div className="date">{props.date.split("-")[2]}</div>
-          <h2>{props.title}</h2>
+          <h5>{props.title}</h5>
         </div>
       </Card>
     </li>

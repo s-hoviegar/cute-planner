@@ -1,12 +1,11 @@
 import ImportantTaskItem from "./ImportantTaskItem";
-import "./TasksList.css";
 
 const ImportantTasksList = (props) => {
   const setDate = (date) => {
     props.dateHandler(date);
   };
 
-  if (props.items.length > 0) {
+  if (props.items.length !== 0) {
     return (
       <ul className="tasks-list">
         {props.items.map((task) => {
@@ -26,8 +25,10 @@ const ImportantTasksList = (props) => {
         })}
       </ul>
     );
+  } else {
+    // console.log("no item!!!"); // There should be a check to find out if only a given month doesn't have important task show this.
+    return <h2>آیتمی وجود ندارد!</h2>;
   }
-  return <h2 className="tasks-list__fallback">No tasks found.</h2>;
 };
 
 export default ImportantTasksList;
