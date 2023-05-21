@@ -9,6 +9,7 @@ import Day from "../Day/Day";
 import ImportantTasks from "../Tasks/ImportantTasks";
 import classes from "./Home.module.css";
 import AuthContext from "../../store/auth-context";
+import { ButtonGroup, Dropdown, DropdownButton } from "react-bootstrap";
 
 const Home = () => {
   const [value, setValue] = useState(
@@ -18,7 +19,7 @@ const Home = () => {
       },
     })
   );
-
+  const [filter, setFilter] = useState("1");
   const [tasks, setTasks] = useState([]);
   const [importants, setImportant] = useState(
     tasks.filter((task) => {
@@ -83,6 +84,18 @@ const Home = () => {
     setShowDayPage(true);
   };
 
+  const changeFilterHandler = (event) => {
+    console.log(event.target.name);
+    if (event.target.name === "1") {
+      setFilter("1");
+    } else {
+      setFilter("2");
+    }
+  };
+
+  let variant = "1";
+  filter === "1" ? (variant = "کارهای مهم") : (variant = "تمام کارها");
+
   return (
     <>
       <div className={classes.pad}>
@@ -91,11 +104,41 @@ const Home = () => {
             <div className={`${classes.column} ${classes.left}`}>
               <Card className={classes.todo_month}>
                 <h2>اهداف مهم ماه</h2>
-                <ImportantTasks
-                  value={value}
-                  items={importants}
-                  dateChangeHandler={changeDateOnImportantClick}
-                ></ImportantTasks>
+                <DropdownButton
+                  as={ButtonGroup}
+                  key={filter}
+                  id={`dropdown-variants-${filter}`}
+                  variant="danger"
+                  title={variant}
+                >
+                  <Dropdown.Item
+                    eventKey="1"
+                    name="1"
+                    onClick={changeFilterHandler}
+                  >
+                    کارهای مهم
+                  </Dropdown.Item>
+                  <Dropdown.Item
+                    eventKey="2"
+                    name="2"
+                    onClick={changeFilterHandler}
+                  >
+                    تمام کارها
+                  </Dropdown.Item>
+                </DropdownButton>
+                {filter === "1" ? (
+                  <ImportantTasks
+                    value={value}
+                    items={importants}
+                    dateChangeHandler={changeDateOnImportantClick}
+                  ></ImportantTasks>
+                ) : (
+                  <ImportantTasks
+                    value={value}
+                    items={tasks}
+                    dateChangeHandler={changeDateOnImportantClick}
+                  ></ImportantTasks>
+                )}
               </Card>
             </div>
             <div className={`${classes.column} ${classes.right}`}>

@@ -1,7 +1,14 @@
+.center {
+  display: flex;
+  justify-content: center;
+}
+
 .task-item {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  min-width: 250px;
+  max-width: 250px;
   padding: 0.5rem;
   margin: 1rem 0;
   background-color: #ffc8dd;
@@ -42,6 +49,10 @@
 }
 
 @media (min-width: 580px) {
+  .task-item {
+    min-width: 500px;
+    max-width: 500px;
+  }
   .task-item__description {
     flex-direction: row;
     align-items: center;

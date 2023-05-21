@@ -24,6 +24,10 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+.checked {
+  text-decoration: line-through;
+}
+
 .important-task-item:hover {
   cursor: pointer;
 }

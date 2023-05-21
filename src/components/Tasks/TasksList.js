@@ -10,7 +10,7 @@ function TasksList(props) {
     props.importantHandler(checked, id);
   };
 
-  if (props.items.length > 0) {
+  if (props.items.length !== 0) {
     return (
       <ul className="tasks-list">
         {props.items.map((task) => {
@@ -31,7 +31,7 @@ function TasksList(props) {
       </ul>
     );
   }
-  return <h2 className="tasks-list__fallback">No tasks found.</h2>;
+  return <h2 className="tasks-list__fallback">آیتمی یافت نشد!</h2>;
 }
 
 export default TasksList;

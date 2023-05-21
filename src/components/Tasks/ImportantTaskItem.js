@@ -12,7 +12,11 @@ const ImportantTaskItem = (props) => {
       <Card className="important-task-item" onClick={gotoDateHandler}>
         <div className="important-task-item__description">
           <div className="date">{props.date.split("-")[2]}</div>
-          <h5>{props.title}</h5>
+          {props.status === true ? (
+            <h5 className="checked">{props.title}</h5>
+          ) : (
+            <h5>{props.title}</h5>
+          )}
         </div>
       </Card>
     </li>

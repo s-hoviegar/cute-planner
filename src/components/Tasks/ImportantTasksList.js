@@ -18,6 +18,7 @@ const ImportantTasksList = (props) => {
                 key={task.id}
                 title={task.title}
                 date={task.date}
+                status={task.status}
                 changeDateHandler={setDate}
               />
             );

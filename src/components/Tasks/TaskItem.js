@@ -14,7 +14,7 @@ const TaskItem = (props) => {
   };
 
   return (
-    <li>
+    <li className="center">
       <Card className="task-item">
         <input
           className="status"
