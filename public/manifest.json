@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Cute Planner",
+  "name": "A simple note/calendar aka planner, single page web application made with react.",
   "icons": [
     {
       "src": "favicon.ico",
