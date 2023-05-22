@@ -207,6 +207,7 @@ const Login = (props) => {
 
   return (
     <Card className={classes.login}>
+      {isSignup ? <h2>ثبت نام کنید:</h2> : <h2>وارد شوید:</h2>}
       <form onSubmit={submitHandler}>
         <div
           className={`${classes.control} ${

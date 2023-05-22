@@ -85,7 +85,7 @@ const Home = () => {
   };
 
   const changeFilterHandler = (event) => {
-    console.log(event.target.name);
+    // console.log(event.target.name);
     if (event.target.name === "1") {
       setFilter("1");
     } else {
