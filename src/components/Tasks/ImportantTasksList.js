@@ -5,6 +5,7 @@ const ImportantTasksList = (props) => {
     props.dateHandler(date);
   };
 
+  // A check to find out if only one given month doesn't have important task show this.
   let result = props.items.flatMap((task) =>
     task.date.split("-")[0] + "-" + task.date.split("-")[1] ===
     props.value.format("YYYY-MM") ? (
@@ -24,7 +25,7 @@ const ImportantTasksList = (props) => {
     // console.log(result);
     return <ul className="tasks-list">{result}</ul>;
   } else {
-    // console.log("no item!!!"); // There should be a check to find out if only a given month doesn't have important task show this.
+    // console.log("no item!!!");
     return <h2>آیتمی وجود ندارد!</h2>;
   }
 };
