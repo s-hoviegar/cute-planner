@@ -24,3 +24,9 @@
 .new-task__actions {
   text-align: right;
 }
+
+@media (max-width: 600px) {
+  .new-task__control input {
+    width: 10rem;
+  }
+}
